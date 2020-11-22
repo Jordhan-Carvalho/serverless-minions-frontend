@@ -3,6 +3,7 @@ import styled from "styled-components";
 
 import Header from "../../components/Header";
 import minions from "../../assets/minions-tbackground.png";
+import ProductList from "./ProductList";
 
 export default function HomePage() {
   return (
@@ -10,6 +11,7 @@ export default function HomePage() {
       <Header />
       <MainContainer>
         <Banner />
+        <ProductList />
       </MainContainer>
     </>
   );
@@ -32,4 +34,6 @@ const Banner = styled.div`
   background-image: url(${minions});
   background-size: contain;
   background-repeat: repeat-x;
+  margin-top: 30px;
+  margin-bottom: 10px;
 `;
