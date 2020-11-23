@@ -1,17 +1,21 @@
 import React, { useState, useContext } from "react";
 import { useHistory } from "react-router-dom";
-// import UserContext from "../../contexts/UserContext";
+import { Auth, Storage } from "aws-amplify";
+
 import styled from "styled-components";
 import Spinner from "../../components/Spinner";
+import { userContext } from "../../contexts/UserContext";
+import { s3Upload } from "../../utils/awsConfig";
 
 export default function Form({ formState, handleChangeFormState }) {
-  // const { signIn, signUp } = useContext(UserContext);
-  let history = useHistory();
+  const { setUser } = useContext(userContext);
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [pictureUrl, setPictureUrl] = useState("");
-  const [loading, setLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [file, setFile] = useState("");
+
+  const history = useHistory();
 
   const sendLoginInfo = async (e) => {
     e.preventDefault();
@@ -19,20 +23,57 @@ export default function Form({ formState, handleChangeFormState }) {
       alert("Preencha todos os campos");
       return;
     }
-    console.log("Entrou");
+    setIsLoading(true);
+
+    try {
+      const { attributes } = await Auth.signIn(email, password);
+      const url = await Storage.vault.get(attributes.picture);
+      console.log({ ...attributes, picture: url });
+      setUser({ ...attributes, picture: url });
+      setIsLoading(false);
+    } catch (e) {
+      alert(e.message);
+      console.error(e);
+      setIsLoading(false);
+    }
   };
 
   const registerUser = async (e) => {
     e.preventDefault();
-    if (email.length === 0 || password.length === 0 || pictureUrl === 0) {
-      alert("Preencha todos os campos");
-      return;
+    if (!validateSignUp()) return;
+
+    setIsLoading(true);
+    try {
+      const picKey = file ? await s3Upload(file) : null;
+      await Auth.signUp({
+        username: email,
+        password: password,
+        attributes: {
+          picture: picKey,
+        },
+      });
+      await sendLoginInfo(e);
+    } catch (e) {
+      console.error(e);
+      setIsLoading(false);
     }
+  };
+
+  const validateSignUp = () => {
+    if (email.length === 0 || password.length === 0 || !file) {
+      alert("Preencha todos os campos");
+      return false;
+    }
+    if (file && file.size > 1000000) {
+      alert(`Please pick a file smaller than ${1000000 / 1000000} MB.`);
+      return false;
+    }
+    return true;
   };
 
   const login = formState === "login";
 
-  if (loading) return <Spinner />;
+  if (isLoading) return <Spinner />;
 
   return (
     <FormContainer onSubmit={login ? sendLoginInfo : registerUser}>
@@ -50,13 +91,12 @@ export default function Form({ formState, handleChangeFormState }) {
       />
       {!login && (
         <input
-          placeholder="picture url"
-          type="url"
-          onChange={(e) => setPictureUrl(e.target.value)}
-          value={pictureUrl}
+          accept=".jpg, .jpeg, .png"
+          type="file"
+          onChange={(e) => setFile(e.target.files[0])}
         />
       )}
-      <Button disabled={loading} type="submit">
+      <Button disabled={isLoading} type="submit">
         {login ? "Log In" : "Sign Up"}
       </Button>
       <ChangeFormButton onClick={handleChangeFormState}>

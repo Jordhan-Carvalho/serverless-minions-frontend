@@ -19,7 +19,6 @@ export default function ProductList() {
         "https://0ddwa81d3k.execute-api.us-east-1.amazonaws.com/dev/minions"
       );
       setProducts(data);
-      console.log(data);
     } catch (e) {
       console.error(e);
     }

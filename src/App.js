@@ -1,14 +1,61 @@
-import React from "react";
+import React, { useContext, useEffect } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { createGlobalStyle } from "styled-components";
+import { Amplify, Auth } from "aws-amplify";
 
+import { userContext } from "./contexts/UserContext";
 import HomePage from "./pages/HomePage/HomePage";
 import LoginPage from "./pages/LoginPage/LoginPage";
 import NotFound from "./pages/NotFound";
 import ProdPage from "./pages/ProdPage";
+import config from "./utils/awsConfig";
 import "./reset.css";
 
+Amplify.configure({
+  Auth: {
+    region: config.cognito.REGION,
+    userPoolId: config.cognito.USER_POOL_ID,
+    identityPoolId: config.cognito.IDENTITY_POOL_ID,
+    userPoolWebClientId: config.cognito.APP_CLIENT_ID,
+  },
+  Storage: {
+    region: config.s3.REGION,
+    bucket: config.s3.BUCKET,
+    identityPoolId: config.cognito.IDENTITY_POOL_ID,
+  },
+  API: {
+    endpoints: [
+      {
+        name: "minions",
+        endpoint: config.apiGateway.URL,
+        region: config.apiGateway.REGION,
+      },
+      {
+        name: "orders",
+        endpoint: config.apiGateway.URL,
+        region: config.apiGateway.REGION,
+      },
+    ],
+  },
+});
+
 function App() {
+  const { setUser } = useContext(userContext);
+  useEffect(() => {
+    checkSession();
+  }, []);
+
+  async function checkSession() {
+    try {
+      const { idToken } = await Auth.currentSession();
+      setUser(idToken.payload);
+    } catch (e) {
+      if (e !== "No current user") {
+        alert(e);
+      }
+    }
+  }
+
   return (
     <Router>
       <GlobalStyle />

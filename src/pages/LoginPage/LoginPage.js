@@ -1,23 +1,27 @@
-import React, { useState } from "react";
-
+import React, { useContext, useState } from "react";
+import { useHistory } from "react-router-dom";
 import styled from "styled-components";
 
+import { userContext } from "../../contexts/UserContext";
 import Form from "./Form";
 
 export default function LoginPage() {
   const [formState, setFormState] = useState("login");
+  const { user } = useContext(userContext);
+  const history = useHistory();
 
   const handleChangeFormState = () => {
     formState === "login" ? setFormState("signup") : setFormState("login");
   };
 
+  if (user) history.push("/");
   return (
     <MainContainer>
       <LeftContainer>
         <div>
           <LogoTitle>Minions Store</LogoTitle>
           <Subtitle>
-            check, reserve and discover <br /> the best minions on the web
+            explore, reserve and discover <br /> the best minion toys on the web
           </Subtitle>
         </div>
       </LeftContainer>
