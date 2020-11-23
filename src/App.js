@@ -3,7 +3,8 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { createGlobalStyle } from "styled-components";
 
 import HomePage from "./pages/HomePage/HomePage";
-import LoginPage from "./pages/LoginPage";
+import LoginPage from "./pages/LoginPage/LoginPage";
+import NotFound from "./pages/NotFound";
 import ProdPage from "./pages/ProdPage";
 import "./reset.css";
 
@@ -15,6 +16,7 @@ function App() {
         <Route path="/" exact component={HomePage} />
         <Route path="/login" component={LoginPage} />
         <Route path="/minion/:id" component={ProdPage} />
+        <Route component={NotFound} />
       </Switch>
     </Router>
   );

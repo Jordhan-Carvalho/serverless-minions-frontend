@@ -5,9 +5,9 @@ import styled from "styled-components";
 export default function Header() {
   return (
     <HeaderContainer>
-      <Title>Minions Store</Title>
+      <Title to="/">Minions Store</Title>
       <NavContainer>
-        <NavLink to="/login">Registrar</NavLink>
+        <NavLink to="/login">Login</NavLink>
       </NavContainer>
     </HeaderContainer>
   );
@@ -25,10 +25,11 @@ const HeaderContainer = styled.header`
   top: 0;
 `;
 
-const Title = styled.h1`
+const Title = styled(Link)`
   color: var(--lightYellow);
-  font-size: 36px;
+  font-size: 34px;
   font-weight: bold;
+  text-decoration: none;
 `;
 
 const NavContainer = styled.div`
