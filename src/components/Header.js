@@ -7,16 +7,15 @@ import { userContext } from "../contexts/UserContext";
 export default function Header() {
   const { user, logOut } = useContext(userContext);
 
-  console.log(user.picture);
   return (
     <HeaderContainer>
       <Title to="/">Minions Store</Title>
       <NavContainer>
         {user ? (
           <>
-            <ProfilePic src={user.picture} />
             <NavLink to="/">Minhas reservas</NavLink>
             <NavLogout onClick={logOut}>Logout</NavLogout>
+            <ProfilePic src={user.picture} />
           </>
         ) : (
           <NavLink to="/login">Login</NavLink>
@@ -47,24 +46,29 @@ const Title = styled(Link)`
 
 const NavContainer = styled.div`
   padding-right: 10%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 `;
 
 const NavLink = styled(Link)`
   color: var(--lightYellow);
   text-decoration: none;
   font-size: 16px;
-  margin-left: 10px;
+  margin-right: 10px;
 `;
 
 const NavLogout = styled.a`
   color: var(--lightYellow);
   text-decoration: none;
   font-size: 16px;
-  margin-left: 10px;
+  margin-right: 10px;
   cursor: pointer;
 `;
 
 const ProfilePic = styled.img`
-  height: 50px;
-  width: 50px;
+  height: 60px;
+  width: 60px;
+  display: block;
+  border-radius: 50%;
 `;

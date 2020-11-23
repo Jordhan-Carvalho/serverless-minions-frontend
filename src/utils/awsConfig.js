@@ -20,11 +20,11 @@ const config = {
 export default config;
 
 export async function s3Upload(file) {
-  const filename = `${Date.now()}`;
+  const filename = `${Date.now()}-${file.name}`;
 
-  const stored = await Storage.vault.put(filename, file, {
+  const stored = await Storage.put(filename, file, {
     contentType: file.type,
   });
-
+  console.log("stored key", stored);
   return stored.key;
 }

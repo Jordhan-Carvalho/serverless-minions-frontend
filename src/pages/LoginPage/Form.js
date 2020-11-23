@@ -1,8 +1,7 @@
 import React, { useState, useContext } from "react";
-import { useHistory } from "react-router-dom";
 import { Auth, Storage } from "aws-amplify";
-
 import styled from "styled-components";
+
 import Spinner from "../../components/Spinner";
 import { userContext } from "../../contexts/UserContext";
 import { s3Upload } from "../../utils/awsConfig";
@@ -15,8 +14,6 @@ export default function Form({ formState, handleChangeFormState }) {
   const [isLoading, setIsLoading] = useState(false);
   const [file, setFile] = useState("");
 
-  const history = useHistory();
-
   const sendLoginInfo = async (e) => {
     e.preventDefault();
     if (email.length === 0 || password.length === 0) {
@@ -27,8 +24,7 @@ export default function Form({ formState, handleChangeFormState }) {
 
     try {
       const { attributes } = await Auth.signIn(email, password);
-      const url = await Storage.vault.get(attributes.picture);
-      console.log({ ...attributes, picture: url });
+      const url = await Storage.get(attributes.picture);
       setUser({ ...attributes, picture: url });
       setIsLoading(false);
     } catch (e) {

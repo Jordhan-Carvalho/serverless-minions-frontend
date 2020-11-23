@@ -1,7 +1,7 @@
 import React, { useContext, useEffect } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { createGlobalStyle } from "styled-components";
-import { Amplify, Auth } from "aws-amplify";
+import { Amplify, Auth, Storage } from "aws-amplify";
 
 import { userContext } from "./contexts/UserContext";
 import HomePage from "./pages/HomePage/HomePage";
@@ -48,7 +48,8 @@ function App() {
   async function checkSession() {
     try {
       const { idToken } = await Auth.currentSession();
-      setUser(idToken.payload);
+      const url = await Storage.get(idToken.payload.picture);
+      setUser({ ...idToken.payload, picture: url });
     } catch (e) {
       if (e !== "No current user") {
         alert(e);
