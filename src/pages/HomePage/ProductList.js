@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
+import { API } from "aws-amplify";
 import styled from "styled-components";
 
 import Spinner from "../../components/Spinner";
+import { Link } from "react-router-dom";
 
 export default function ProductList() {
   const [isLoading, setIsLoading] = useState(false);
@@ -15,9 +16,7 @@ export default function ProductList() {
   const fetchMinions = async () => {
     setIsLoading(true);
     try {
-      const { data } = await axios.get(
-        "https://0ddwa81d3k.execute-api.us-east-1.amazonaws.com/dev/minions"
-      );
+      const data = await API.get("minions", "/minions");
       setProducts(data);
     } catch (e) {
       console.error(e);
@@ -33,7 +32,13 @@ export default function ProductList() {
   ) : (
     <ProdListContainer>
       {products.map((p, i) => (
-        <ProdContainer key={i}>
+        <ProdContainer
+          key={i}
+          to={{
+            pathname: `/minion/${p.amzId}`,
+            state: { product: p },
+          }}
+        >
           <ProdImage src={p.imageUrl} />
 
           <ProdTitle>{truncate(p.title)}</ProdTitle>
@@ -52,7 +57,7 @@ const ProdListContainer = styled.div`
   margin-top: 80px;
 `;
 
-const ProdContainer = styled.div`
+const ProdContainer = styled(Link)`
   padding: 10px;
   height: 300px;
   width: 260px;
@@ -66,7 +71,8 @@ const ProdContainer = styled.div`
   align-items: center;
   overflow: hidden;
   border-radius: 10px;
-  cursor: pointer;
+  text-decoration: none;
+  color: inherit;
 `;
 
 const ProdImage = styled.img`

@@ -7,7 +7,8 @@ import { userContext } from "./contexts/UserContext";
 import HomePage from "./pages/HomePage/HomePage";
 import LoginPage from "./pages/LoginPage/LoginPage";
 import NotFound from "./pages/NotFound";
-import ProdPage from "./pages/ProdPage";
+import ProdPage from "./pages/ProdPage/ProdPage";
+import OrdersPage from "./pages/OrdersPage";
 import config from "./utils/awsConfig";
 import "./reset.css";
 
@@ -32,6 +33,11 @@ Amplify.configure({
       },
       {
         name: "orders",
+        endpoint: config.apiGateway.URL,
+        region: config.apiGateway.REGION,
+      },
+      {
+        name: "send-email",
         endpoint: config.apiGateway.URL,
         region: config.apiGateway.REGION,
       },
@@ -64,6 +70,7 @@ function App() {
         <Route path="/" exact component={HomePage} />
         <Route path="/login" component={LoginPage} />
         <Route path="/minion/:id" component={ProdPage} />
+        <Route path="/orders" component={OrdersPage} />
         <Route component={NotFound} />
       </Switch>
     </Router>

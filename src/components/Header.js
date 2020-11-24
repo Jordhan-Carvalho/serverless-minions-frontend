@@ -13,7 +13,7 @@ export default function Header() {
       <NavContainer>
         {user ? (
           <>
-            <NavLink to="/">Minhas reservas</NavLink>
+            <NavLink to="/orders">My reservations</NavLink>
             <NavLogout onClick={logOut}>Logout</NavLogout>
             <ProfilePic src={user.picture} />
           </>
