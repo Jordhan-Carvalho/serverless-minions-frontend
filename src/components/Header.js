@@ -34,6 +34,9 @@ const HeaderContainer = styled.header`
   align-items: center;
   position: fixed;
   top: 0;
+  @media (max-width: 768px) {
+    height: 70px;
+  }
 `;
 
 const Title = styled(Link)`
@@ -42,6 +45,10 @@ const Title = styled(Link)`
   font-weight: bold;
   text-decoration: none;
   padding-left: 10%;
+  @media (max-width: 768px) {
+    font-size: 26px;
+    padding-left: 5%;
+  }
 `;
 
 const NavContainer = styled.div`
@@ -49,6 +56,9 @@ const NavContainer = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  @media (max-width: 768px) {
+    padding-right: 5%;
+  }
 `;
 
 const NavLink = styled(Link)`
@@ -56,6 +66,10 @@ const NavLink = styled(Link)`
   text-decoration: none;
   font-size: 16px;
   margin-right: 10px;
+  @media (max-width: 768px) {
+    font-size: 14px;
+    margin-right: 5px;
+  }
 `;
 
 const NavLogout = styled.a`
@@ -64,6 +78,10 @@ const NavLogout = styled.a`
   font-size: 16px;
   margin-right: 10px;
   cursor: pointer;
+  @media (max-width: 768px) {
+    font-size: 14px;
+    margin-right: 5px;
+  }
 `;
 
 const ProfilePic = styled.img`
@@ -71,4 +89,8 @@ const ProfilePic = styled.img`
   width: 60px;
   display: block;
   border-radius: 50%;
+  @media (max-width: 768px) {
+    height: 25px;
+    width: 25px;
+  }
 `;

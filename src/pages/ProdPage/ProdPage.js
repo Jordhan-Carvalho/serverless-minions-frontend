@@ -61,12 +61,14 @@ export default function ProdPage() {
     if (!window.confirm("Reservar o item?")) return;
     setIsSending(true);
     try {
+      // email do user hardcoded por limitacoes do SES, user.email
       await API.post("send-email", "/send-email", {
         body: {
-          to: "carvalho@jordhan.dev",
+          toUser: "jordhan.rdz@gmail.com",
+          toBGC: "thiago@bgcbrasil.com.br",
           from: "carvalho@jordhan.dev",
-          subject: "Test email",
-          text: "Hi there send form api",
+          subject: "Reservation Confirmed",
+          text: `Succesfully reserved ${product.title}`,
         },
       });
       const order = {
@@ -115,5 +117,6 @@ const MainContainer = styled.main`
   display: flex;
   @media (max-width: 768px) {
     padding: 0 0 50px 0;
+    margin-top: 100px;
   }
 `;

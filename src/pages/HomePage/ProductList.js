@@ -4,6 +4,7 @@ import styled from "styled-components";
 
 import Spinner from "../../components/Spinner";
 import { Link } from "react-router-dom";
+import { truncate } from "../../utils/helperFunctions";
 
 export default function ProductList() {
   const [isLoading, setIsLoading] = useState(false);
@@ -23,9 +24,6 @@ export default function ProductList() {
     }
     setIsLoading(false);
   };
-
-  const truncate = (input) =>
-    input.length > 5 ? `${input.substring(0, 60)}...` : input;
 
   return isLoading ? (
     <Spinner />
@@ -53,8 +51,12 @@ const ProdListContainer = styled.div`
   width: 100%;
   display: flex;
   justify-content: space-between;
+  align-items: center;
   flex-wrap: wrap;
   margin-top: 80px;
+  @media (max-width: 768px) {
+    margin-top: 20px;
+  }
 `;
 
 const ProdContainer = styled(Link)`
@@ -73,6 +75,9 @@ const ProdContainer = styled(Link)`
   border-radius: 10px;
   text-decoration: none;
   color: inherit;
+  @media (max-width: 768px) {
+    margin-right: 0px;
+  }
 `;
 
 const ProdImage = styled.img`

@@ -5,6 +5,7 @@ import styled from "styled-components";
 import Header from "../components/Header";
 import Spinner from "../components/Spinner";
 import { Link } from "react-router-dom";
+import { truncate } from "../utils/helperFunctions";
 
 export default function OrdersPage() {
   const [orders, setOrders] = useState([]);
@@ -35,7 +36,7 @@ export default function OrdersPage() {
           orders.map((o, i) => (
             <OrderContainer key={i} to={`/minion/${o.prodId}`}>
               <Picture src={o.prodPicture} />
-              <Title>{o.prodTitle}</Title>
+              <Title>{truncate(o.prodTitle, 50)}</Title>
               <Title>{o.prodPrice}</Title>
             </OrderContainer>
           ))
@@ -50,7 +51,8 @@ const MainContainer = styled.main`
   padding: 0 10%;
   padding-bottom: 50px;
   @media (max-width: 768px) {
-    padding: 0 0 50px 0;
+    padding: 0 2%;
+    margin-top: 100px;
   }
 `;
 
@@ -64,6 +66,10 @@ const OrderContainer = styled(Link)`
   margin-bottom: 20px;
   padding-right: 20px;
   text-decoration: none;
+  @media (max-width: 768px) {
+    font-size: 22px;
+    width: 90%;
+  }
 `;
 
 const Picture = styled.img`
@@ -72,9 +78,16 @@ const Picture = styled.img`
   display: block;
   border: 1px solid var(--darkYellow);
   margin-right: 10px;
+  @media (max-width: 768px) {
+    height: 70px;
+    width: 70px;
+  }
 `;
 
 const Title = styled.h3`
   font-size: 16px;
   color: var(--darkBlue);
+  @media (max-width: 768px) {
+    font-size: 12px;
+  }
 `;

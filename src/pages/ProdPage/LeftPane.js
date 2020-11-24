@@ -22,6 +22,10 @@ const Title = styled.h1`
   font-size: 26px;
   color: var(--darkYellow);
   margin-bottom: 40px;
+  @media (max-width: 768px) {
+    margin: 0 20px 20px 20px;
+    font-size: 20px;
+  }
 `;
 
 const ProductImage = styled.img`

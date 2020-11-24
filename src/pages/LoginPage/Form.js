@@ -86,11 +86,17 @@ export default function Form({ formState, handleChangeFormState }) {
         value={password}
       />
       {!login && (
-        <input
-          accept=".jpg, .jpeg, .png"
-          type="file"
-          onChange={(e) => setFile(e.target.files[0])}
-        />
+        <>
+          <label style={{ marginTop: 10 }} for="file">
+            Choose a profile picture (Click me)
+          </label>
+          <input
+            name="file"
+            accept=".jpg, .jpeg, .png"
+            type="file"
+            onChange={(e) => setFile(e.target.files[0])}
+          />
+        </>
       )}
       <Button disabled={isLoading} type="submit">
         {login ? "Log In" : "Sign Up"}

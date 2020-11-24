@@ -24,7 +24,7 @@ const MainContainer = styled.main`
   padding: 0 10%;
   padding-bottom: 50px;
   @media (max-width: 768px) {
-    padding: 0 0 50px 0;
+    padding: 0 5%;
   }
 `;
 
@@ -36,4 +36,7 @@ const Banner = styled.div`
   background-repeat: repeat-x;
   margin-top: 30px;
   margin-bottom: 10px;
+  @media (max-width: 768px) {
+    height: 100px;
+  }
 `;

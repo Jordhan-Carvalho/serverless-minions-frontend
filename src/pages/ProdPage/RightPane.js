@@ -34,12 +34,21 @@ const Price = styled.h3`
   font-size: 26px;
   color: var(--darkYellow);
   margin: 20px 0;
+  @media (max-width: 768px) {
+    margin: 10px 0;
+    font-size: 20px;
+  }
 `;
 
 const DescItem = styled.p`
   font-size: 14px;
   margin-bottom: 20px;
   color: var(--darkBlue);
+  @media (max-width: 768px) {
+    font-size: 12px;
+    margin-bottom: 10px;
+    margin-right: 10px;
+  }
 `;
 
 const TopicHeader = styled.h3`
@@ -47,6 +56,10 @@ const TopicHeader = styled.h3`
   font-size: 26px;
   color: var(--darkYellow);
   margin-bottom: 30px;
+  @media (max-width: 768px) {
+    font-size: 20px;
+    margin-bottom: 20px;
+  }
 `;
 
 const Button = styled.button`
@@ -62,6 +75,7 @@ const Button = styled.button`
   cursor: pointer;
   margin-top: 20px;
   @media (max-width: 768px) {
-    font-size: 22px;
+    font-size: 16px;
+    width: 80%;
   }
 `;
