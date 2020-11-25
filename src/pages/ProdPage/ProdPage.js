@@ -61,10 +61,9 @@ export default function ProdPage() {
     if (!window.confirm("Reservar o item?")) return;
     setIsSending(true);
     try {
-      // email do user hardcoded por limitacoes do SES, user.email
       await API.post("send-email", "/send-email", {
         body: {
-          toUser: "jordhan.rdz@gmail.com",
+          toUser: `${user.email}`,
           toBGC: "thiago@bgcbrasil.com.br",
           from: "carvalho@jordhan.dev",
           subject: "Reservation Confirmed",

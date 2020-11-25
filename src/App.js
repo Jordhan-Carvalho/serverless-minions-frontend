@@ -11,6 +11,7 @@ import ProdPage from "./pages/ProdPage/ProdPage";
 import OrdersPage from "./pages/OrdersPage";
 import config from "./utils/awsConfig";
 import "./reset.css";
+import AuthenticatedRoute from "./components/AuthenticatedRoute";
 
 Amplify.configure({
   Auth: {
@@ -71,6 +72,7 @@ function App() {
         <Route path="/login" component={LoginPage} />
         <Route path="/minion/:id" component={ProdPage} />
         <Route path="/orders" component={OrdersPage} />
+        {/* <AuthenticatedRoute path="/orders" component={OrdersPage} /> */}
         <Route component={NotFound} />
       </Switch>
     </Router>
