@@ -1,9 +1,17 @@
 # Minions frontend
 
-- SPA com React
+## Tecnologias utilizadas
 
-- Conexao com os serviços da AWS atraves do aws amplify (API, Auth e Storage)
+- ReactJS
+- AWS S3
+- AWS APIGateway
+- AWS Cognito
+- AWS SES
 
-- Estilização com styled-components
+* Conexão com os serviços da AWS através do aws amplify (API, Auth e Storage)
 
-- Link: https://confident-wright-1b8ce7.netlify.app/
+* Estilização com styled-components
+
+* Link deploy: https://confident-wright-1b8ce7.netlify.app/
+
+Backend: https://github.com/Jordhan-Carvalho/serverless-minions-aws

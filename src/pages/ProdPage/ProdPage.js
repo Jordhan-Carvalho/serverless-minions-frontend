@@ -67,7 +67,7 @@ export default function ProdPage() {
           toBGC: "thiago@bgcbrasil.com.br",
           from: "carvalho@jordhan.dev",
           subject: "Reservation Confirmed",
-          text: `Succesfully reserved ${product.title}`,
+          text: `Succesfully reserved ${product.title} for R${product.price}, check your Orders page for more info`,
         },
       });
       const order = {
