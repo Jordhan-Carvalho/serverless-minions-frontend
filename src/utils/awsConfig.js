@@ -25,6 +25,5 @@ export async function s3Upload(file) {
   const stored = await Storage.put(filename, file, {
     contentType: file.type,
   });
-  console.log("stored key", stored);
   return stored.key;
 }

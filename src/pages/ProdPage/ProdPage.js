@@ -114,6 +114,7 @@ const MainContainer = styled.main`
   padding: 0 10%;
   padding-bottom: 50px;
   display: flex;
+  justify-content: space-between;
   @media (max-width: 768px) {
     padding: 0 0 50px 0;
     margin-top: 100px;

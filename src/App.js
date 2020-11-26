@@ -71,8 +71,7 @@ function App() {
         <Route path="/" exact component={HomePage} />
         <Route path="/login" component={LoginPage} />
         <Route path="/minion/:id" component={ProdPage} />
-        <Route path="/orders" component={OrdersPage} />
-        {/* <AuthenticatedRoute path="/orders" component={OrdersPage} /> */}
+        <AuthenticatedRoute path="/orders" component={OrdersPage} />
         <Route component={NotFound} />
       </Switch>
     </Router>
